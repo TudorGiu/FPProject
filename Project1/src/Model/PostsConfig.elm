@@ -43,9 +43,13 @@ sortToString sort =
 
 -}
 sortFromString : String -> Maybe SortBy
-sortFromString _ =
-    -- Nothing
-    Debug.todo "sortFromString"
+sortFromString string =
+    case string of
+        "Score" -> Just Score
+        "Title" -> Just Title
+        "Posted" -> Just Posted
+        "None" -> Just None
+        _ -> Nothing
 
 
 sortToCompareFn : SortBy -> (Post -> Post -> Order)
@@ -81,14 +85,24 @@ defaultConfig =
 {-| A type that describes what option changed and how
 -}
 type Change
-    = ChangeTODO
+    = ChangePostsToFetch Int
+    | ChangePostsToShow Int
+    | ChangeSortBy SortBy
+    | ChangeShowJobs Bool
+    | ChangeShowTextOnly Bool
 
 
 {-| Given a change and the current configuration, return a new configuration with the changes applied
 -}
 applyChanges : Change -> PostsConfig -> PostsConfig
-applyChanges _ _ =
-    Debug.todo "applyChanges"
+applyChanges change config =
+    case change of
+        ChangePostsToFetch value -> { config | postsToFetch = value }
+        ChangePostsToShow value -> { config | postsToShow = value }
+        ChangeSortBy value -> { config | sortBy = value }
+        ChangeShowJobs value -> { config | showJobs = value }
+        ChangeShowTextOnly value -> { config | showTextOnly = value }
+
 
 
 {-| Given the configuration and a list of posts, return the relevant subset of posts according to the configuration

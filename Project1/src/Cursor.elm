@@ -1,4 +1,4 @@
-module Cursor exposing (Cursor, back, current, forward, fromList, length, nonEmpty, toList, withSelectedElement)
+module Cursor exposing (Cursor(..), back, current, forward, fromList, length, nonEmpty, toList, withSelectedElement)
 
 {-| Data structure to efficiently navigate a list forward or backward.
 

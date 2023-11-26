@@ -2,7 +2,8 @@ module Model.PostIds exposing (..)
 
 import Cursor exposing (Cursor)
 import Json.Decode as De
-
+import Model.Post exposing (Post)
+import Cursor exposing (forward)
 
 type HackerNewsItem
     = Top
@@ -58,9 +59,9 @@ If the `Cursor` is focused on the last element, it returns `Nothing`
 
 -}
 advance : PostIds -> Maybe ( Int, PostIds )
-advance _ =
-    -- Nothing
-    Debug.todo "advance"
+advance (PostIds cursor) =
+    cursor |> Cursor.forward
+           |> Maybe.andThen (\x -> Just (Cursor.current x, PostIds x))
 
 
 {-| Returns the first post id
@@ -90,11 +91,8 @@ If the list is empty, the function returns `Nothing`.
     De.decodeString decode "[]" --> Ok (Nothing)
 
 -}
--- decode : De.Decoder (Maybe PostIds)
--- decode = De.maybe ()
-
-decode2 : De.Decoder Cursor
-decode2 = De.map3 Cursor
-    (De.list De.int)
-    De.int
-    (De.list De.int)
+decode : De.Decoder (Maybe PostIds)
+decode = De.maybe <| De.map PostIds <| 
+  De.map3 Cursor.Cursor (De.list De.int) De.int (De.list De.int)
+-- i need cursor's constructor, but Cursor module does not expose it
+                                

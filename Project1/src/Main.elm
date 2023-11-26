@@ -148,8 +148,8 @@ update msg model =
                             ( Model.FailedToLoad err, Effect.NoEffect )
 
                 ( Model.LoadedPosts state, ConfigChanged change ) ->
-                    -- ( Model.LoadedPosts state, Effect.NoEffect )
-                    ( Debug.todo "update the config in the update function", Effect.NoEffect )
+                    ( Model.LoadedPosts {state | config = Model.PostsConfig.applyChanges change state.config}, Effect.NoEffect )
+                    
 
                 ( state, _ ) ->
                     ( state, Effect.NoEffect )

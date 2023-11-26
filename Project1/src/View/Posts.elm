@@ -33,7 +33,7 @@ Relevant library functions:
 
 -}
 postTable : PostsConfig -> Time.Posix -> List Post -> Html Msg
-postTable _ _ postList =     
+postTable _ postSubmittedTime postList =     
   div [] [
     Html.table [] [
       Html.thead [] [  
@@ -50,7 +50,9 @@ postTable _ _ postList =
             Html.td [class "post-score"] [text <| String.fromInt x.score]
             , Html.td [class "post-title"] [text x.title]
             , Html.td [class "post-url"] [text <| Maybe.withDefault "nothing" x.url]
-            , Html.td [class "post-time"] [text <| Util.Time.formatTime Time.utc x.time]
+            , Html.td [class "post-time"] [text <| (Util.Time.formatTime Time.utc x.time) ++ 
+            " " ++ (Util.Time.formatDate (Util.Time.posixToDate Time.utc x.time)) ++
+            " (" ++  (Util.Time.formatDuration (Maybe.withDefault (Util.Time.Duration 0 0 0 0) (Util.Time.durationBetween postSubmittedTime Time.now))) ++ ")"]
             , Html.td [class "post-type"] [text x.type_]
           ]
         ) postList)
@@ -74,21 +76,21 @@ Relevant functions:
 postsConfigView : PostsConfig -> Html Msg
 postsConfigView _ =
   div [] [
-    Html.select [id "select-posts-per-page"] [
+    Html.select [id "select-posts-per-page", Html.Events.onInput (ConfigChanged << ChangePostsToShow << Maybe.withDefault 10 << String.toInt)] [
       Html.option [] [text <| String.fromInt 10]
       , Html.option [] [text <| String.fromInt 25]
       , Html.option [] [text <| String.fromInt 50]
     ]
     , 
-    Html.select [id "select-sort-by"] [
+    Html.select [id "select-sort-by", Html.Events.onInput (ConfigChanged << ChangeSortBy << Maybe.withDefault None << sortFromString)] [
       Html.option [] [text "score"]
       , Html.option [] [text "title,"]
       , Html.option [] [text "date posted"]
       , Html.option [] [text "unsorted"]
     ]
     ,
-    Html.input [id "checkbox-show-job-posts", Html.Attributes.type_ "checkbox"] []
+    Html.input [id "checkbox-show-job-posts", Html.Attributes.type_ "checkbox", Html.Events.onCheck (ConfigChanged << ChangeShowJobs)] []
     , 
-    Html.input [id "checkbox-show-text-only-posts", Html.Attributes.type_ "checkbox"] []
+    Html.input [id "checkbox-show-text-only-posts", Html.Attributes.type_ "checkbox", Html.Events.onCheck (ConfigChanged << ChangeShowTextOnly)] []
   ]
 

@@ -21,23 +21,23 @@ main : Test.Runner.Node.TestProgram
 main =
     Test.Runner.Node.run
         { runs = 100
-        , report = ConsoleReport Monochrome
+        , report = JsonReport
         , seed = 376158560164992
-        , processes = 12
+        , processes = 4
         , globs =
             []
         , paths =
-            [ "D:\\Facultate\\Anul3sem1\\FP\\Project1\\tests\\ExampleTests\\CursorTests.elm"
-            , "D:\\Facultate\\Anul3sem1\\FP\\Project1\\tests\\ExampleTests\\ModelPostIdsTests.elm"
-            , "D:\\Facultate\\Anul3sem1\\FP\\Project1\\tests\\ExampleTests\\ModelPostsConfigTests.elm"
-            , "D:\\Facultate\\Anul3sem1\\FP\\Project1\\tests\\ExampleTests\\UtilTimeTests.elm"
-            , "D:\\Facultate\\Anul3sem1\\FP\\Project1\\tests\\MainTests.elm"
-            , "D:\\Facultate\\Anul3sem1\\FP\\Project1\\tests\\PostsConfigTests.elm"
-            , "D:\\Facultate\\Anul3sem1\\FP\\Project1\\tests\\PostsViewTests.elm"
-            , "D:\\Facultate\\Anul3sem1\\FP\\Project1\\tests\\PostTests.elm"
-            , "D:\\Facultate\\Anul3sem1\\FP\\Project1\\tests\\SimulatedEffect.elm"
-            , "D:\\Facultate\\Anul3sem1\\FP\\Project1\\tests\\TestData.elm"
-            , "D:\\Facultate\\Anul3sem1\\FP\\Project1\\tests\\TestUtils.elm"
+            [ "D:\\Labs\\FP\\FPProject\\Project1\\tests\\ExampleTests\\CursorTests.elm"
+            , "D:\\Labs\\FP\\FPProject\\Project1\\tests\\ExampleTests\\ModelPostIdsTests.elm"
+            , "D:\\Labs\\FP\\FPProject\\Project1\\tests\\ExampleTests\\ModelPostsConfigTests.elm"
+            , "D:\\Labs\\FP\\FPProject\\Project1\\tests\\ExampleTests\\UtilTimeTests.elm"
+            , "D:\\Labs\\FP\\FPProject\\Project1\\tests\\MainTests.elm"
+            , "D:\\Labs\\FP\\FPProject\\Project1\\tests\\PostsConfigTests.elm"
+            , "D:\\Labs\\FP\\FPProject\\Project1\\tests\\PostsViewTests.elm"
+            , "D:\\Labs\\FP\\FPProject\\Project1\\tests\\PostTests.elm"
+            , "D:\\Labs\\FP\\FPProject\\Project1\\tests\\SimulatedEffect.elm"
+            , "D:\\Labs\\FP\\FPProject\\Project1\\tests\\TestData.elm"
+            , "D:\\Labs\\FP\\FPProject\\Project1\\tests\\TestUtils.elm"
             ]
         }
         [ ( "ExampleTests.CursorTests"
