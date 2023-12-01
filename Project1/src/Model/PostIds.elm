@@ -60,7 +60,7 @@ If the `Cursor` is focused on the last element, it returns `Nothing`
 -}
 advance : PostIds -> Maybe ( Int, PostIds )
 advance (PostIds cursor) =
-    cursor |> Cursor.forward
+    cursor |> forward
            |> Maybe.andThen (\x -> Just (Cursor.current x, PostIds x))
 
 
@@ -92,7 +92,4 @@ If the list is empty, the function returns `Nothing`.
 
 -}
 decode : De.Decoder (Maybe PostIds)
-decode = De.maybe <| De.map PostIds <| 
-  De.map3 Cursor.Cursor (De.list De.int) De.int (De.list De.int)
--- i need cursor's constructor, but Cursor module does not expose it
-                                
+decode = De.map (\x -> fromList x) (De.list De.int)                             

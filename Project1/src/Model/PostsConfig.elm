@@ -123,7 +123,7 @@ filterPosts config list =
                                                                                 Nothing -> False
                                                                           )
             )
-         |> (if config.showJobs == True then (\x->x) else List.filter (\x -> if x.type_ /= "job" then True else False))
+         |> (if config.showJobs == True then (\x->x) else List.filter (\x -> if x.type_ == "job" then False else True))
          |> List.take config.postsToShow
          |> List.sortWith (sortToCompareFn config.sortBy)                                                               
             
